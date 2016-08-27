@@ -1,0 +1,12 @@
+[ProjectGroup]
+Version=1.0
+[Project1]
+ProjectPath=ºËÐÄ°å\MiCore.PrjPCB
+[Project2]
+ProjectPath=ÓÎÏ·µ×°å\GameBoard.PrjPcb
+[Project3]
+ProjectPath=Ê¾²¨Æ÷µ×°å\DSOBoard.PrjPcb
+[Project4]
+ProjectPath=Êý¿ØµçÔ´µ×°å\DCPBoard.PrjPcb
+[Project5]
+ProjectPath=LCR±íµ×°å\LCRBoard.PrjPcb

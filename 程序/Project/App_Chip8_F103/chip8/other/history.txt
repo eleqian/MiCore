@@ -1,0 +1,191 @@
+This list is ordered chronologically, so if you want to see the newest changes,
+you'll have to scroll alllllll the way down. Between 13-02-05 and 03-09-07,
+version numbers were 1.x, with x incrementing every release.
+
+
+23-01-05: 1.0
+Everything's new (started development on 08-01-05)
+
+- complete CHIP-8 and SCHIP emulation/interpretation, with variable CPU speed
+- standard GUI
+- save state support
+
+25-01-05: 1.0.1
+- a few optimisations
+- start address selector, seems to be useless, but I'll keep it in. I thought
+  it would make the CHIP-8 bootrom work... guess not
+- ROM loading bugfix: program counter was reset too late
+
+28-01-05: 1.0.2
+- some more optimisations
+- a couple of source code cleanups
+- renamed ROMs to clearer names
+- added CHIP-8 ROMs: 15puzzle2, C8pic, Cave (most fun of this bunch), Chip8Boot
+  (won't work), Filter, Guess2, IBM, Invaders2, Maze2, Pong3, Rocket, Rocket2,
+  Tapeworm, X-Mirror (won't work). thanks to newsdee for most of these
+- added SCHIP ROM: Emutest, by me. it tests the timer, half-line scrolling, and
+  8*16 sprite mode
+
+31-01-05: 1.0.3
+- when will the optimisations stop?
+- able to choose different random functions: AND or modulo
+- nomore UPX (compressed executable), useless for such a small executable
+
+06-02-05: 1.0.4
+- colours more faithful to the HP48
+- some unimportant fixes
+
+13-02-05: 1.0.5
+- changed version numbering, thus evily rewrote the history too like in 1984
+- I don't keep track of every small change, but there must have been some
+
+19-02-05: 1.0.6
+- fixed potential crash when loading from commandline
+- compiled with newer version of gcc/mingw
+
+22-02-05: 1.0.7
+- you can now change colours, also randomly (F9)
+- ...and overclock the cpu speed*1000, but useless for games using the timer
+
+23-02-05: 1.0.8
+- nightly typos make the world go around
+
+
+29-05-05: 1.1
+- sound (from pc speaker, i'm too lazy to add directsound to this silly emu)
+
+29-05-05: 1.1.1
+- I (quickly) went ahead and added directsound sound anyway
+- the host flags are not forgotten anymore, but saved to flags.sav
+
+
+03-06-05: 1.2
+- you can rewind gameplay for up to about 20 seconds (F6), quite the same like
+  in Prince of Persia: Sands of Time
+- actually put some help into the help window, whoa
+- added a BMP viewer ROM, by yours truly. works with monochrome BMPs only, of
+  course. put the BMP data (headerless) at offset $30. change offset $0 $00ff
+  to $1202 for CHIP-8.
+
+05-06-05: 1.2.1
+- fixed sound crackling while rewinding
+
+21-06-05: 1.2.2
+- fixed probable current directory find bug
+
+10-07-05: 1.2.3
+- added the Fish 'N' Chips logo ROM, and made it a splash screen (fun place to
+  be for a fish)
+
+26-10-05: 1.2.4
+- urm, forgot to free state rewind memory on exit
+
+
+06-01-06: 1.3
+Hehe, it's been almost a year since I've started with this emulator.
+
+- cleaned up a bit of source code (renamed standard typedefs to prevent
+  collision with Windows typedefs, removed support for binary, merged font.h
+  with fishie.h to data.h, shortcuts for commonly used functions, version info)
+- changed some default settings (higher CPU speed, disabled wrapping, different
+  colours, larger window)
+- removed the ROMs from the release, even though they're freeware
+- the loaded ROM filename is now shown in the titlebar
+- timing should be more accurate
+- added a $100 start address option, for Boot-128 (so the start address
+  selector added in 1.0.1 was useful after all)
+- moved font data to the $000-$0FF region
+
+15-02-06: 1.3.1
+- fixed scrolling to the right, where the leftmost pixels scrolled to the left
+  (out of the screen) instead
+- ROMs can now also be opened by dragging/dropping one onto the window
+
+
+08-04-06: 1.4
+- fixed carry maths in opcodes, also removed the carry hack for Spacefight
+  (that game doesn't work right)
+- fixed possible overflows in some opcodes, and the stack
+- fixed sound hanging sometimes when a game quit
+- fixed the sound being 1 cycle too short, causing the shortest possible beep
+  to be silent
+- changed the beeper sound a bit
+- corrected the flags from 16 to 8 bytes
+- fixed the 'wait for keypress' opcode, where it went through if a key was held
+  down, and not only when pressed
+- moved some GUI options into a 'Hacks' section
+
+08-04-06: 1.4.1
+bleh, I hate finding bugs right after a new version..
+
+- fixed the 'wait for keypress' opcode, again (fix was broken in 1.4)
+- fixed some more possible overflows
+- fixed rewinding when the rewind buffer is empty
+
+08-06-06: 1.4.2
+- added an option to increment the index register on memory opcodes, necessary
+  for some older games
+- hardly added support for CHIP-8X
+
+
+29-12-06: 2.0
+- source: lots of refactoring, almost everything has been rewritten
+- added accurate RCA COSMAC VIP emulation with built-in CHIP-8 and CHIP-8X
+  modes, the SCHIP interpreter is separate from this
+- removed support for rewind
+- SCHIP: removed CHIP-8X support (emulated now), removed modulo random hack,
+  removed increment i hack, and added a hack to clear the HP48 flags
+- SCHIP: speed is visible on the titlebar
+- if emulation/interpretation has stopped, it's visible on the titlebar
+  instead of a messagebox
+- shortened titlebar title to FNC
+- settings/flags are saved to the registry instead of an external file
+- added hard reset
+- added aspect ratio selection
+- frame timing is more accurate
+- added a sleep option to prevent heavy cpu usage (it affects frame timing
+  accuracy)
+- input: switched to DirectInput, added a 'shadow' keypad, and added an option
+  to set keys on character instead of on location
+- changed hotkey layout a bit
+- moved start address selection to the open dialog
+- executable is now bundled with 2 games by me, Sokoban and Rush Hour
+- rewrote documentation
+
+
+18-05-07: 2.1
+In my opinion, this application is done. Don't expect any big updates like the
+December 2006 release.
+
+- changed icon background to transparant, and added a 48*48 icon
+- added a help window, and improved the about window
+- fixed frame timing on laptops that change their CPU clock speed to save power
+  (untested)
+- small speedup by changing source struct alignment
+- centered application window on startup
+- removed exit shortcut (Escape key), Alt+F4 is fine
+
+29-07-07: 2.1.1
+- a few minor changes
+- included C8 and SC icons, for use with manual file association
+
+03-09-07: 2.1.2
+- fixed possible frame timing problem on dual core processors
+- redid version numbering, like the way it was before 13-02-05: X.Y.Z, where
+  X increment=complete rewrite, Y inc=normal release, Z inc=minor release
+
+21-04-08: 2.1.3
+- updated the included Rush Hour game
+- fixed really stupid timing calculation bug that caused the emulator to fail
+  completely on some computers
+
+13-07-08: 2.1.4
+The main reason for this minor release is because my homepage moved to a new
+location
+
+- various small fixes (not just the remark above)
+
+05-09-08: 2.1.5
+
+- fixed possible crash on Windows Vista
+

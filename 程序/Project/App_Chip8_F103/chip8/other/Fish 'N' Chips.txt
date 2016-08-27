@@ -1,0 +1,159 @@
+Fish 'N' Chips 2.1.5 is a freeware open source RCA COSMAC VIP emulator +
+CHIP-8/SCHIP interpreter for Microsoft Windows, (C) hap 2005-2008,
+http://tsk-tsk.net/
+
+internal RCA COSMAC VIP Operating System, CHIP-8 and CHIP-8X interpreters
+(C) Joseph Weisbecker 1977-1990(?)
+Mersenne Twister MT19937 (C) 1997-2002 Makoto Matsumoto and Takuji Nishimura,
+(C) 2005 Mutsuo Saito, http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/emt.html
+
+RCA1802 CPU emulation based on datasheet released by Intersil, 1997. RCA1861
+"Pixie" videochip emulation based on datasheet by RCA. RCA COSMAC VIP emulation
+mostly based on the official manual, and program disassemblies by Lee A. Hart
+(Monitor ROM) and Josh Bensadon (CHIP-8/CHIP-8X interpreters).
+CHIP-8/SCHIP interpreter mostly based on technical documentation by David Winter,
+http://www.pong-story.com/chip8/
+
+Compiled with GCC 4.2.3, using MinGW, http://www.mingw.org/
+
+Executable bundled with CHIP-8 Rush Hour and SCHIP Sokoban (C) hap 2006. These
+are adaptations of original puzzlegames by Hiroyuki Imabayashi/Thinking Rabbit,
+and Nobuyuki Yoshigahara "Nob"/ThinkFun.
+
+Fish 'N' Chips may be freely distributed, not for commercial purposes.
+The source code can be obtained from my homepage. If you want to reuse anything,
+go ahead, as long as you credit me, and your project is open source too.
+
+
+
+== What? ==
+
+The COSMAC VIP is a computer from 1977 with a 1802 CPU running at 1.7609MHz
+addressing up to 4KB of RAM, a 1861 "Pixie" videochip capable of displaying
+monochrome graphics at a resolution up to 64*128, and a keypad with 16 keys
+(0-F). Don't ask me what COSMAC stands for, in the 70s it probably sounded
+really cool to young guys hoping for a job at NASA. VIP stands for Video
+Interface Processor. CHIP-8 is a low level interpreted programming language
+designed for this computer, CHIP-8X is an extension to CHIP-8. SCHIP is another
+extension to CHIP-8, but designed for HP calculators instead.
+
+Fish 'N' Chips, a hybrid COSMAC VIP emulator/SCHIP interpreter, is meant to run
+CHIP-8, CHIP-8X, and SCHIP programs, that are freely available on the internet.
+As it's not very easy to find these programs, 2 games by me have been included
+with the executable. It should also be possible to run programs designed for
+the COSMAC VIP by setting the start address at 0, though the tape interface
+hasn't been emulated.
+
+It's up to you to pick the right mode (VIP CHIP-8/VIP CHIP-8X/SCHIP). Basically,
+SCHIP programs will only run in SCHIP mode, and CHIP-8X programs will only run
+in VIP CHIP-8X mode. CHIP-8 programs can be run in VIP CHIP-8 and SCHIP modes.
+These two interpret programs slightly differently, so one might work in SCHIP
+mode while it won't in VIP CHIP-8 mode and vice versa.
+
+A list of known differences:
+
+		VIP CHIP-8 (emulated)		SCHIP (interpreted)
+
+timing:		An instruction takes a		Each instruction takes 1 cycle,
+		variable amount of cycles, up  	speed can be changed by user.
+		to an entire frame when
+		drawing a sprite.
+memory:		~3232 bytes available.		3584 bytes available.
+stack:		12 levels. 			16 levels, circular.
+host code:	Hybrid CHIP-8/1802 programs 	Host is the PC, hybrid programs
+		work fine. 			will fail.
+op 8XY6/8XYE*1:	The value from VY gets shifted,	Y is ignored.
+		the result is stored into VX.
+op FX55/FX65*2:	When done, I=I+X+1.		I is left unchanged.
+op FX0A*3:	Wait for key release, and beep	Wait for keypress.
+		while the key is pressed.
+
+*1: CHIP-8 shift instructions
+*2: CHIP-8 memory load/store instructions
+*3: CHIP-8 wait for keypress instruction
+
+
+
+== How? ==
+
+I bet you can't wait playing those state of the art CHIP-8 games you heard
+everyone talking about. They can be loaded by using the menu, the commandline,
+or by dragging-dropping a file onto the main window/executable. The GUI is
+simple and self-explanatory. Settings are saved to the Windows registry after
+exit, "HKEY_CURRENT_USER\Software\Fish 'N' Chips emulator\" to be exact.
+
+Controls reference:
+
+ CHIP:			PC:
+1 2 3 C		1 2 3 4		7 8 9 0
+4 5 6 D		Q W E R		U I O P
+7 8 9 E		A S D F		J K L ;
+A 0 B F		Z X C V		M , . /
+
+or just 0-F after picking the keypad 'on character' option.
+
+F1:  decrease SCHIP speed
+F2:  increase SCHIP speed
+F3:  soft machine reset
+F4:  hard machine reset (reload)
+F5:  change mode (any open program will be reopened at default start address)
+F6:  save state in memory (will be lost after hard reset)
+F7:  load state from memory
+F8:  toggle SCHIP cheat (sprite collision detection)
+F9:  toggle sound
+F10: menu (standard key)
+F11: toggle inverted colours
+F12: random colours
+
+(Alt+F4: exit)
+
+CHIP-8 Rush Hour: Use WSAD to move, Z to accept/hold to slide, 1 to cancel.
+     The object of this game is to slide out the arrow block(s).
+SCHIP Sokoban: Use WSAD to move, Z to accept/undo, hold X to restart.
+     The object of Sokoban is to push all boxes to their destination.
+
+These games, including documentation and source code, can also be downloaded
+from my homepage ( http://tsk-tsk.net/ ).
+
+
+
+== Newest Changes ==
+
+Refer to history.txt for the complete list.
+
+18-05-07: 2.1
+In my opinion, this application is done. Don't expect any big updates like the
+December 2006 release.
+
+- changed icon background to transparant, and added a 48*48 icon
+- added a help window, and improved the about window
+- fixed frame timing on laptops that change their CPU clock speed to save power
+  (untested)
+- small speedup by changing source struct alignment
+- centered application window on startup
+- removed exit shortcut (Escape key), Alt+F4 is fine
+
+29-07-07: 2.1.1
+- a few minor changes
+- included C8 and SC icons, for use with manual file association
+
+03-09-07: 2.1.2
+- fixed possible frame timing problem on dual core processors
+- redid version numbering, like the way it was before 13-02-05: X.Y.Z, where
+  X increment=complete rewrite, Y inc=normal release, Z inc=minor release
+
+21-04-08: 2.1.3
+- updated the included Rush Hour game
+- fixed really stupid timing calculation bug that caused the emulator to fail
+  completely on some computers
+
+13-07-08: 2.1.4
+The main reason for this minor release is because my homepage moved to a new
+location
+
+- various small fixes (not just the remark above)
+
+05-09-08: 2.1.5
+
+- fixed possible crash on Windows Vista
+
